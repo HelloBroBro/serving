@@ -24,8 +24,8 @@ local_repository(
 load("//tensorflow_serving:repo.bzl", "tensorflow_http_archive")
 tensorflow_http_archive(
     name = "org_tensorflow",
-    sha256 = "0ad9f7287308c3fc87d518166d55719e217e972e0fb32d710764d365ec64375d",
-    git_commit = "6f423b7c3fd0bef528ebdcdb7195d5468f60fe6b",
+    sha256 = "8c50d02974962997b63566023d5fe2ecb94344211d2a33111f784b1aaf7d04ac",
+    git_commit = "cde6bda45454d9abead83e69b6023941465e21ff",
 )
 
 # Import all of TensorFlow Serving's external dependencies.
@@ -37,7 +37,7 @@ tf_serving_workspace()
 
 # Check bazel version requirement, which is stricter than TensorFlow's.
 load("@bazel_skylib//lib:versions.bzl", "versions")
-versions.check("6.4.0")
+versions.check("6.5.0")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
