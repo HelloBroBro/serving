@@ -26,6 +26,7 @@ tensorflow_http_archive(
     name = "org_tensorflow",
     sha256 = "68c4961e7d710e32e89420a1aeb19d484bc3dfea53f9945c26818fe61f08c37a",
     git_commit = "4ae0afa5794f1e9ecc1f08d160464680c973b812",
+    patch = "//third_party/tensorflow:tensorflow.patch",
 )
 
 # Import all of TensorFlow Serving's external dependencies.
@@ -59,10 +60,24 @@ http_archive(
 
 load("@rules_python//python:repositories.bzl", "python_register_toolchains")
 
+load(
+    "@rules_python//python:repositories.bzl",
+    "py_repositories",
+    "python_register_toolchains",
+)
+py_repositories()
+
+load(
+    "@org_tensorflow//tensorflow/tools/toolchains/python:python_repo.bzl",
+    "python_repository",
+)
+python_repository(name = "python_version_repo")
+load("@python_version_repo//:py_version.bzl", "HERMETIC_PYTHON_VERSION")
+
 python_register_toolchains(
     name = "python",
     ignore_root_user_error = True,
-    python_version = "3.9",
+    python_version = HERMETIC_PYTHON_VERSION,
 )
 
 # Initialize TensorFlow's external dependencies.
